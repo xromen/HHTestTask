@@ -28,7 +28,7 @@ services:
     networks:
       - hhtest-dev
     volumes:
-      - /PostgresData:/var/lib/postgresql/data
+      - "./PostgresData:/var/lib/postgresql/data"
 
   client1:
     image: ${DOCKER_REGISTRY-}client1
