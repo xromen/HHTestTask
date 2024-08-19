@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div id='messages'></div>
+
+<script type="text/javascript">
+    var socket,
+        $messages = document.getElementById('messages');
+
+    if (typeof (WebSocket) !== 'undefined') {
+        socket = new WebSocket("ws://localhost/ws/hop/connect");
+    } else {
+        socket = new MozWebSocket("ws://localhost/ws/hop/connect");
+    }
+
+    socket.onmessage = function (msg) {
+        var $el = document.createElement('p');
+        $el.innerHTML = msg.data;
+        $messages.appendChild($el);
+    };
+
+    socket.onclose = function (event) {
+        alert('ВебСокет потерян. Пожалуйста, обновите страницу');
+    };
+</script>

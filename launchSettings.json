@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "hhtest1api": "StartDebugging",
+        "api": "StartDebugging",
+        "client1": "StartDebugging",
+        "client2": "StartDebugging",
+        "client3": "StartDebugging"
+      }
+    }
+  }
+}

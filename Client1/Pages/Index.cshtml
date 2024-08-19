@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <form method="post">
+        @if (Model.IsWorking)
+        {
+            <input type="submit" value="Остановить" />
+        }
+        else
+        {
+            <input type="submit" value="Запустить" />
+        }
+    </form>
+</div>
+
+

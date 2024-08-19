@@ -1,0 +1,75 @@
+version: '3.4'
+networks:
+  hhtest-dev:
+    driver: bridge
+services:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    networks:
+      - hhtest-dev
+    depends_on:
+      - postgres_db
+    ports:
+      - 80:80
+    volumes:
+      - "./ApiLogs:/app/logs"
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - hhtest-dev
+    volumes:
+      - /PostgresData:/var/lib/postgresql/data
+
+  client1:
+    image: ${DOCKER_REGISTRY-}client1
+    build:
+      context: .
+      dockerfile: Client1/Dockerfile
+    ports:
+      - 81:80
+    networks:
+      - hhtest-dev
+    depends_on:
+      - api
+    volumes:
+      - "./Clinet1Logs:/app/logs"
+
+
+  client2:
+    image: ${DOCKER_REGISTRY-}client2
+    build:
+      context: .
+      dockerfile: Client2/Dockerfile
+    ports:
+      - 82:80
+    networks:
+      - hhtest-dev
+    depends_on:
+      - api
+    volumes:
+      - "./Clinet2Logs:/app/logs"
+
+  client3:
+    image: ${DOCKER_REGISTRY-}client3
+    build:
+      context: .
+      dockerfile: Client3/Dockerfile
+    ports:
+      - 83:80
+    networks:
+      - hhtest-dev
+    depends_on:
+      - api
+    volumes:
+      - "./Clinet3Logs:/app/logs"
+
